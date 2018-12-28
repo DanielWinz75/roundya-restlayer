@@ -1,11 +1,19 @@
-# Developing and Securing RESTful APIs with Spring Boot
-This sample application shows how to develop a Restful api with
-SpringBoot and secure it using Spring Security via JSON Web Tokens.
+# Roundya API with Spring Boot
+This application is based on https://github.com/auth0-blog/springboot-auth-updated.git
 
-# How To Setup The Application And Run It
-* Make sure you have gradle installed on your system and an IDE. If 
-you don't have an IDE don't worry you can still follow with a text editor and 
-the terminal.
-* Make sure you have Java 10 installed on your system. [Get it here](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
-* Clone the repository using the command `git clone https://github.com/vladimirfomene/springboot-auth-updated.git`
-* Run `gradle bootrun` to build and run the project or run the project from your ide(make sure you build it before running)
+# Application Set-Up
+
+$ gradle -version
+  ------------------------------------------------------------
+  Gradle 5.0
+  ------------------------------------------------------------
+
+  Build time:   2018-11-26 11:48:43 UTC
+  Revision:     7fc6e5abf2fc5fe0824aec8a0f5462664dbcd987
+
+  Kotlin DSL:   1.0.4
+  Kotlin:       1.3.10
+  Groovy:       2.5.4
+  Ant:          Apache Ant(TM) version 1.9.13 compiled on July 10 2018
+  JVM:          11.0.1 (Oracle Corporation 11.0.1+13-LTS)
+  OS:           Linux 4.8.0-58-generic amd64
