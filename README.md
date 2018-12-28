@@ -4,9 +4,8 @@ This application is based on https://github.com/auth0-blog/springboot-auth-updat
 # Application Set-Up
 
 $ gradle -version
-  ------------------------------------------------------------
+
   Gradle 5.0
-  ------------------------------------------------------------
 
   Build time:   2018-11-26 11:48:43 UTC
   Revision:     7fc6e5abf2fc5fe0824aec8a0f5462664dbcd987
