@@ -9,10 +9,10 @@ public class ApplicationUser {
     @Id
     private String _id;
 
-    @Field(value = "Username")        
+    @Field(value = "Username")
     private String username;
 
-    @Field(value = "Password")        
+    @Field(value = "Password")
     private String password;
 
     public String getId() {
