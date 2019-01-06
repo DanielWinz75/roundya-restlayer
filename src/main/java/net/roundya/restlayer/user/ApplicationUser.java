@@ -15,6 +15,9 @@ public class ApplicationUser {
     @Field(value = "Password")
     private String password;
 
+    @Field(value = "Email")
+    private String email;
+
     public String getId() {
         return _id;
     }
@@ -34,4 +37,13 @@ public class ApplicationUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
