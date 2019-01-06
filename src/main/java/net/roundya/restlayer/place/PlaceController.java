@@ -2,6 +2,8 @@ package net.roundya.restlayer.place;
 
 import java.util.List;
 
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,8 +55,8 @@ public class PlaceController {
 
         GeoJsonPoint point = new GeoJsonPoint(longitute, latitute);
 
-        // TBD: MaxDistance einbauen
-        return placeRepository.findByLocationNear(point);
+        Distance dist = new Distance(PlaceConstants.MAX_DISTANCE_KILOMETERS, Metrics.KILOMETERS);
+        return placeRepository.findByLocationNear(point, dist);
     }
 
     @PutMapping("/{id}")
