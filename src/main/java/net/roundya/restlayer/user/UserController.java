@@ -6,31 +6,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.roundya.restlayer.errorhandling.EmailExistsException;
-import net.roundya.restlayer.errorhandling.UserNameExistsException;
+import net.roundya.restlayer.errorhandling.UserExistsException;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private ApplicationUserRepository applicationUserRepository;
+    private ApplicationUserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(ApplicationUserRepository applicationUserRepository,
+    public UserController(ApplicationUserRepository userRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.applicationUserRepository = applicationUserRepository;
+        this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody ApplicationUser user) throws UserNameExistsException {
-        if( applicationUserRepository.findByUsername(user.getUsername()) != null ) {
-            throw new UserNameExistsException("Username allready exists.");
+    public void signUp(@RequestBody ApplicationUser user) throws UserExistsException {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            throw new UserExistsException("Username allready exists.");
         }
-        // if( applicationUserRepository.findByEmail(user.getEmail()) != null ) {
-        //     throw new EmailExistsException("Email address allready exists.");
-        // }        
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new UserExistsException("Email address allready exists.");
+        }       
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepository.save(user);
+        userRepository.save(user);
     }
 }

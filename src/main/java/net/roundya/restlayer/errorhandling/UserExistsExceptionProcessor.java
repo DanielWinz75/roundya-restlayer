@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import net.roundya.restlayer.errorhandling.ExceptionResponse;
-import net.roundya.restlayer.errorhandling.UserNameExistsException;
 
 @ControllerAdvice
-public class UsernameExistsExceptionProcessor {
+public class UserExistsExceptionProcessor {
 
-	@ExceptionHandler(UserNameExistsException.class)
-    @ResponseStatus(value = HttpStatus.CONFLICT)
-    @ResponseBody    
-	public ExceptionResponse userNameExists(final UserNameExistsException exception,
+	@ExceptionHandler(value = { UserExistsException.class })
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+
+	public @ResponseBody ExceptionResponse userNameExists(final UserExistsException exception,
 			final HttpServletRequest request) {
 
 		ExceptionResponse error = new ExceptionResponse();
@@ -25,6 +24,6 @@ public class UsernameExistsExceptionProcessor {
 		error.callerURL(request.getRequestURI());
 
 		return error;
-	}    
- 
+	}
+
 }

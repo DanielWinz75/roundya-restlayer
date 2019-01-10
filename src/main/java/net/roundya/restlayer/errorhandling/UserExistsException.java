@@ -1,14 +1,14 @@
 package net.roundya.restlayer.errorhandling;
 
-public class EmailExistsException extends Exception {
+public class UserExistsException extends Exception {
 
 	private static final long serialVersionUID = -9079454849611061074L;
 
-	public EmailExistsException() {
+	public UserExistsException() {
 		super();
 	}
 
-	public EmailExistsException(final String message) {
+	public UserExistsException(final String message) {
 		super(message);
 	}
 
