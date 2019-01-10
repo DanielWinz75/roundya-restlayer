@@ -25,12 +25,6 @@ public class Place {
     @Field(value = "Text")    
     private String text;
 
-    @Field(value = "Long")    
-    private String longitude;
-
-    @Field(value = "Lat")    
-    private String latitude;
-
     @Field(value = "Location")    
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;
@@ -64,28 +58,12 @@ public class Place {
     }
 
     public String getText() {
-        return predicate;
+        return text;
     }
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getLat() {
-        return latitude;
-    }
-
-    public void setLat(String latitude) {
-        this.latitude = latitude;
-    }    
-
-    public String getLong() {
-        return longitude;
-    }
-
-    public void setLong(String longitude) {
-        this.longitude = longitude;
-    }    
+    } 
 
     public GeoJsonPoint getLocation() {
         return location;

@@ -27,10 +27,17 @@ public class PlaceController {
 
     @PostMapping
     public void addPlace(@RequestBody Place place) {
-        double longitute = Double.valueOf(place.getLong());
-        double latitute = Double.valueOf(place.getLat());
-        GeoJsonPoint p = new GeoJsonPoint(longitute, latitute);
-        place.setLocation(p);
+        // --- Sample Request ----
+        // {
+        // "subject": "Ich",
+        // "predicate": "teste",
+        // "object": "wie doof",
+        // "text": "und doof",
+        // "location": {
+        // "type": "Point",
+        // "coordinates": [-122.414, 37.776]
+        // }
+        // }
         placeRepository.insert(place);
     }
 
@@ -46,12 +53,11 @@ public class PlaceController {
 
     @GetMapping("/near/{id}")
     public List<Place> getPlaceNear(@PathVariable String id) {
-
         Place place = placeRepository.findById(id).get();
         Assert.notNull(place, "Place not found");
 
-        double longitute = Double.valueOf(place.getLong());
-        double latitute = Double.valueOf(place.getLat());
+        double longitute = place.getLocation().getX();
+        double latitute = place.getLocation().getY();
 
         GeoJsonPoint point = new GeoJsonPoint(longitute, latitute);
 
