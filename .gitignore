@@ -3,6 +3,8 @@
 /bin/
 /gradle/wrapper/
 /src/test/
+/.vscode/
+/wastebin/
 
 ### STS ###
 .apt_generated
@@ -26,3 +28,5 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+

@@ -31,4 +31,6 @@ dependencies {
 	compile("org.javassist:javassist:3.23.1-GA")
 	compile("javax.xml.bind:jaxb-api:2.3.0")
 	compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+	compile("org.springframework.boot:spring-boot-starter-webflux")
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
 }
