@@ -1,16 +1,11 @@
 package net.roundya.restlayer.place;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,16 +53,8 @@ public class PlaceController {
         return reactivePlaceRepository.findById(id);
     }
 
-    @GetMapping("/near/{id}")
-    public Flux<Place> getPlaceNear(@PathVariable String id) {        
-        System.out.println(".... In");
-
-        // TBD: Would be faster if this was a get function receiving the coordinates directly
-        Place place = placeRepository.findById(id).get();
-        Assert.notNull(place, "Place not found");
-
-        System.out.println("get place near: " + place.getId());
-
+    @PostMapping("/near")
+    public Flux<Place> getPlaceNear(@Valid @RequestBody Place place) {
         double longitute = place.getLocation().getX();
         double latitute = place.getLocation().getY();
         
@@ -80,9 +67,8 @@ public class PlaceController {
 
     // TBD: Not updating yet, only adding ...
     @PutMapping("/{id}")
-    public Mono<Place> editPlace(@PathVariable String id, @Valid @RequestBody Place place) {        
-        Place existingPlace = placeRepository.findById(id).get();
-        Assert.notNull(existingPlace, "Place not found");
+    public Mono<Place> editPlace(@PathVariable String id, @RequestBody Place place) {   
+        place.setId(id);
         return reactivePlaceRepository.save(place);
     }
 

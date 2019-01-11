@@ -29,6 +29,10 @@ public class Place {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;
 
+    public void setId(String id) {
+        this._id = id;
+    }
+
     public String getId() {
         return _id;
     }    
