@@ -36,14 +36,17 @@ public class PlaceController {
     public Mono<Place> addPlace(@Valid @RequestBody Place place) {
         // --- Sample Request ----
         // {
-        // "subject": "Ich",
-        // "predicate": "teste",
-        // "object": "wie doof",
-        // "text": "und doof",
-        // "location": {
-        // "type": "Point",
-        // "coordinates": [-122.414, 37.776]
-        // }
+        //     "subject" : "Wir",
+        //     "predicate" : "laden ein zu",
+        //     "object" : "einer Party",
+        //     "text" : "mit Bier und Wein",
+        //     "ownerId": "5c3879cf8cdd023e16c1f54d",
+        //     "createdOnUTC": "1470884052977",
+        //     "updatedOnUTC": "1470884052977",
+        //       "location": {
+        //         "type": "Point",
+        //         "coordinates": [-122.414023, 37.776023]
+        //        }
         // }
         return reactivePlaceRepository.save(place);
     }
@@ -64,10 +67,9 @@ public class PlaceController {
         return reactivePlaceRepository.findByLocationNear(point, dist);
     }
 
-
-    // TBD: Not updating yet, only adding ...
+    // TBD: This is producing error currently
     @PutMapping("/{id}")
-    public Mono<Place> editPlace(@PathVariable String id, @RequestBody Place place) {   
+    public Mono<Place> editPlace(@PathVariable String id, @RequestBody Place place) {
         place.setId(id);
         return reactivePlaceRepository.save(place);
     }
