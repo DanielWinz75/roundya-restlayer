@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 @ComponentScan ({"net.roundya.restlayer", "net.roundya.restlayer.config"})
 @EnableMongoRepositories ({"net.roundya.restlayer.user", "net.roundya.restlayer.place"})
-@EnableReactiveMongoRepositories ("net.roundya.restlayer.place")
+@EnableReactiveMongoRepositories ({"net.roundya.restlayer.user", "net.roundya.restlayer.place"})
 public class Application {
 
 	@Bean
