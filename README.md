@@ -1,6 +1,3 @@
-# Roundya API with Spring Boot
-This application is based on https://github.com/auth0-blog/springboot-auth-updated.git
-
 # Development environment
 
   Gradle 5.0
