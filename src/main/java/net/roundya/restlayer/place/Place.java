@@ -2,12 +2,9 @@ package net.roundya.restlayer.place;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.AccessType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Version;
-import org.springframework.data.annotation.AccessType.Type;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
@@ -46,8 +43,11 @@ public class Place {
     @Field(value = "Text")
     private String text;
 
-    @Field(value = "OwnerId")
-    private String ownerId;
+    /**
+     * username creagin the document
+     */
+    @Field(value = "Owner")
+    private String owner;
 
     @Field(value = "Location")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
@@ -93,12 +93,12 @@ public class Place {
         this.text = text;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(String id) {
-        this.ownerId = id;
+    public void setOwner(String user) {
+        this.owner = user;
     }
 
     public GeoJsonPoint getLocation() {
