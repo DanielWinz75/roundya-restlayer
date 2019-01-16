@@ -2,6 +2,15 @@ package net.roundya.restlayer.place;
 
 import java.util.Date;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,7 +24,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 // @AllArgsConstructor
 // @NoArgsConstructor
 @Document(collection = "Places")
-public class Place {
+public class Place {   
+
     @Id
     private String _id;
 
@@ -31,15 +41,28 @@ public class Place {
     // @Version
     // public long version;
 
+    @NotBlank
+    @NotEmpty
+    @NotNull
+    @Size(min = 2, message = "Subject should have 2 characters at least.")    
     @Field(value = "Subject")
     private String subject;
 
+    @NotBlank
+    @NotEmpty
+    @NotNull
+    @PredicateConstraint
+    @Size(min = 2, message = "Predicate should have 2 characters at least.")    
     @Field(value = "Predicate")
     private String predicate;
 
+    @NotBlank
+    @NotEmpty
+    @NotNull
+    @Size(min = 2, message = "Object should have 2 characters at least.")    
     @Field(value = "Object")
     private String object;
-
+    
     @Field(value = "Text")
     private String text;
 
@@ -49,6 +72,7 @@ public class Place {
     @Field(value = "Owner")
     private String owner;
 
+    @NotNull
     @Field(value = "Location")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;

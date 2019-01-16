@@ -1,5 +1,7 @@
 package net.roundya.restlayer.user;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/sign-up")
-    public Mono<ApplicationUser> signUp(@RequestBody ApplicationUser user) throws UserExistsException {
+    public Mono<ApplicationUser> signUp(@Valid @RequestBody ApplicationUser user) throws UserExistsException {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new UserExistsException("Username allready exists.");
         }
