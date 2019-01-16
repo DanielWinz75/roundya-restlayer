@@ -44,7 +44,7 @@ public class Place {
     private String text;
 
     /**
-     * username creagin the document
+     * username
      */
     @Field(value = "Owner")
     private String owner;
