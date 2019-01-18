@@ -60,7 +60,7 @@ public class PlaceController {
         return reactivePlaceRepository.findById(id);
     }
 
-    @GetMapping("/near/{longitute}/{latitute}")
+    @PostMapping("/near")
     public Flux<Place> getPlaceNear(@RequestBody Place place) {
         double longitute = place.getLocation().getX();
         double latitute = place.getLocation().getY();
