@@ -16,6 +16,9 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import net.roundya.restlayer.validation.PredicateConstraint;
+import net.roundya.restlayer.validation.SubjectConstraint;
+
 // @Data
 // @AllArgsConstructor
 // @NoArgsConstructor
@@ -40,6 +43,7 @@ public class Place {
     @NotBlank
     @NotEmpty
     @NotNull
+    @SubjectConstraint    
     @Size(min = 2, message = "Subject should have 2 characters at least.")    
     @Field(value = "Subject")
     private String subject;

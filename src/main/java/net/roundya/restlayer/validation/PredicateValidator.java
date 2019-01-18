@@ -1,9 +1,11 @@
-package net.roundya.restlayer.place;
+package net.roundya.restlayer.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PlaceValidator implements
+import net.roundya.restlayer.place.PlaceConstants;
+
+public class PredicateValidator implements
   ConstraintValidator<PredicateConstraint, String> {
  
   @Override
