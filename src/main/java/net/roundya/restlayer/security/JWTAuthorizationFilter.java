@@ -7,6 +7,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import net.roundya.restlayer.errorhandling.TokenExpiredException;
+
+import org.springframework.security.core.AuthenticationException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +29,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
@@ -35,16 +38,23 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+        try {
+            UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (Exception e) {
+            res.setContentType("application/json");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.setHeader("Error", "Token expired.");
+        }
         chain.doFilter(req, res);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request)
+            throws AuthenticationException {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // parse the token.            
+            // parse the token.
             String user = JWTAuthorizationFilter.getUserFromToken(request);
 
             if (user != null) {
@@ -58,12 +68,14 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     /**
      * Helper to parse the token and retrieve the username
      */
-    public static String getUserFromToken(HttpServletRequest request) {
+    public static String getUserFromToken(HttpServletRequest request) throws AuthenticationException {
         String token = request.getHeader(HEADER_STRING);
-        String user = JWT.require(Algorithm.HMAC256(SECRET.getBytes()))
-            .build()
-            .verify(token.replace(TOKEN_PREFIX, ""))
-            .getSubject();
-        return user;
+        try {
+            String user = JWT.require(Algorithm.HMAC256(SECRET.getBytes())).build()
+                    .verify(token.replace(TOKEN_PREFIX, "")).getSubject();
+            return user;
+        } catch (Exception e) {
+            throw new TokenExpiredException("Token has expired.");
+        }
     }
 }
