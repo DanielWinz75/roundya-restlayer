@@ -25,14 +25,14 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public Mono<ApplicationUser> signUp(@Valid @RequestBody ApplicationUser user) throws UserExistsException {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new UserExistsException("Username allready exists.");
         }
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new UserExistsException("Email address allready exists.");
-        }       
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return reactiveUserRepository.save(user);
     }

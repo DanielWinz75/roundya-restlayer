@@ -18,14 +18,14 @@ public class ApplicationUser {
     @NotBlank
     @NotEmpty
     @NotNull
-    @Size(min = 4, message = "User should have 4 characters at least.")        
+    @Size(min = 6, message = "User should have 4 characters at least.")
     @Field(value = "Username")
     private String username;
 
     @NotBlank
     @NotEmpty
     @NotNull
-    @Size(min = 6, message = "Password should have 6 characters at least.")
+    @Size(min = 12, message = "Password should have 6 characters at least.")
     @Field(value = "Password")
     private String password;
 
