@@ -10,4 +10,7 @@ public class PlaceConstants {
         public static final List<String> PREDICATES = new ArrayList<String>(
                         Arrays.asList("buy", "sell", "search", "offer", "need", "invite"));
 
+        public static final List<String> SUBJECTS = new ArrayList<String>(
+                        Arrays.asList("I", "we"));
+
 }
