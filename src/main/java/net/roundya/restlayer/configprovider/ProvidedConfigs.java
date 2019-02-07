@@ -8,8 +8,6 @@ public class ProvidedConfigs {
 
     private List<String> predicates = PlaceConstants.PREDICATES;
 
-    private List<String> subjects = PlaceConstants.SUBJECTS;
-
     public List<String> getPredicates() {
         return this.predicates;
     }
@@ -18,11 +16,4 @@ public class ProvidedConfigs {
         this.predicates = predicates;
     }
 
-    public List<String> getSubjects() {
-        return this.subjects;
-    }
-
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
-    }
 }
