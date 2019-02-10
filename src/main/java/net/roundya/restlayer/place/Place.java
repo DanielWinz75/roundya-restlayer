@@ -63,6 +63,7 @@ public class Place {
     @Field(value = "Object")
     private String object;
     
+    @Size(max = 300, message = "Text must not exeed 300 characters.")
     @Field(value = "Text")
     private String text;
 

@@ -11,6 +11,6 @@ public class PlaceConstants {
                         Arrays.asList("buy", "sell", "search", "offer", "need", "invite"));
 
         public static final List<String> SUBJECTS = new ArrayList<String>(
-                        Arrays.asList("I", "we"));
+                        Arrays.asList("singular", "plural"));
 
 }
