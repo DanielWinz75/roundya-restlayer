@@ -77,12 +77,10 @@ public class PlaceController {
 
     // @PreAuthorize("hasRole('ROLE_user')") --> could be interesting once
     @PutMapping("/{id}")
-    public Mono<Place> editPlace(
-        @PathVariable("id") String id, 
-        @Valid @RequestBody Place place, 
-        HttpServletRequest request) throws PlaceNotExistingException, UserNotAuthorizedException {
+    public Mono<Place> editPlace(@PathVariable("id") String id, @Valid @RequestBody Place place,
+            HttpServletRequest request) throws PlaceNotExistingException, UserNotAuthorizedException {
 
-        if(!placeRepository.existsById(id)) {
+        if (!placeRepository.existsById(id)) {
             throw new PlaceNotExistingException("Required place doesn't exist.");
         }
 

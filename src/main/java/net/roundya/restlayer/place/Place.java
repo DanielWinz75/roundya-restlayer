@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -23,7 +24,7 @@ import net.roundya.restlayer.validation.SubjectConstraint;
 // @AllArgsConstructor
 // @NoArgsConstructor
 @Document(collection = "Places")
-public class Place {   
+public class Place {
 
     @Id
     private String _id;
@@ -43,8 +44,8 @@ public class Place {
     @NotBlank
     @NotEmpty
     @NotNull
-    @SubjectConstraint    
-    @Size(min = 2, message = "Subject should have 2 characters at least.")    
+    @SubjectConstraint
+    @Size(min = 2, message = "Subject should have 2 characters at least.")
     @Field(value = "Subject")
     private String subject;
 
@@ -52,17 +53,17 @@ public class Place {
     @NotEmpty
     @NotNull
     @PredicateConstraint
-    @Size(min = 2, message = "Predicate should have 2 characters at least.")    
+    @Size(min = 2, message = "Predicate should have 2 characters at least.")
     @Field(value = "Predicate")
     private String predicate;
 
     @NotBlank
     @NotEmpty
     @NotNull
-    @Size(min = 2, message = "Object should have 2 characters at least.")    
+    @Size(min = 2, message = "Object should have 2 characters at least.")
     @Field(value = "Object")
     private String object;
-    
+
     @Size(max = 300, message = "Text must not exeed 300 characters.")
     @Field(value = "Text")
     private String text;
@@ -72,6 +73,10 @@ public class Place {
      */
     @Field(value = "Owner")
     private String owner;
+
+    @Field(value = "Url")
+    @URL
+    private String url;
 
     @NotNull
     @Field(value = "Location")
@@ -124,6 +129,14 @@ public class Place {
 
     public void setOwner(String user) {
         this.owner = user;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public GeoJsonPoint getLocation() {
