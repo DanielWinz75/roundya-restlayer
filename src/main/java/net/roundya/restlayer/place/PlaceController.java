@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +62,7 @@ public class PlaceController {
     }
 
     @PostMapping("/near")
-    public Flux<Place> getPlaceNear(@RequestBody Place place) {
+    public Flux<GeoResult<Place>> getPlaceNear(@RequestBody Place place) {
         double longitute = place.getLocation().getX();
         double latitute = place.getLocation().getY();
 
