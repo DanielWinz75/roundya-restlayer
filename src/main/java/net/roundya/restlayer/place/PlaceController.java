@@ -1,5 +1,12 @@
 package net.roundya.restlayer.place;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -8,6 +15,7 @@ import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +61,11 @@ public class PlaceController {
 
         String user = JWTAuthorizationFilter.getUserFromToken(request);
         place.setOwner(user);
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        place.setExpirationDate(formatter.format(place.getExpirationDate()));
+
         return reactivePlaceRepository.save(place);
     }
 

@@ -1,5 +1,8 @@
 package net.roundya.restlayer.place;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -14,9 +17,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import net.roundya.restlayer.validation.ExpiresConstraint;
 import net.roundya.restlayer.validation.PredicateConstraint;
 import net.roundya.restlayer.validation.SubjectConstraint;
 
@@ -40,6 +45,12 @@ public class Place {
     // https://stackoverflow.com/questions/53242033/spring-boot-mongo-audit-version-issue
     // @Version
     // public long version;
+
+    @NotNull
+    @ExpiresConstraint
+    @Indexed(expireAfterSeconds = 259200) // 3 days
+    @Field(value = "ExpirationDate")
+    private Date expirationDate;
 
     @NotBlank
     @NotEmpty
@@ -83,12 +94,34 @@ public class Place {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint location;
 
+    public void setDateCreated(Date d) {
+        this.dateCreated = d;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
     public void setId(String id) {
         this._id = id;
     }
 
     public String getId() {
         return _id;
+    }
+
+    public void setExpirationDate(String d) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        try {
+            Date expDate = formatter.parse(d);
+            this.expirationDate = expDate;
+        } catch (ParseException e) {
+            this.expirationDate = null;
+        }
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
     public String getSubject() {
