@@ -11,8 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import net.roundya.restlayer.place.PlaceConstants;
 
-public class ExpiresValidator
-    implements ConstraintValidator<ExpiresConstraint, Date> {
+public class ExpiresValidator implements ConstraintValidator<ExpiresConstraint, Date> {
 
   @Override
   public void initialize(ExpiresConstraint secs) {
@@ -24,7 +23,7 @@ public class ExpiresValidator
     long offsetSecs = (reqExpDate.getTime() - Instant.now().toEpochMilli()) / 1000;
     long min = PlaceConstants.TIME_TO_LIVE_MIN;
     long max = PlaceConstants.TIME_TO_LIVE_MAX;
-    if( offsetSecs < min || offsetSecs > max)
+    if (offsetSecs < min || offsetSecs > max)
       return false;
 
     return true;

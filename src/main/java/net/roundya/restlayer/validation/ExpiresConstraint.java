@@ -12,10 +12,12 @@ import java.lang.annotation.RetentionPolicy;
 
 @Documented
 @Constraint(validatedBy = ExpiresValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExpiresConstraint {
-    String message() default "Difference of date-now and date-requested must be between 3600secs (1 hour) and 259200secs (3 days).";
+    String message() default "Difference of date-now and date-requested must be between 1 hour and 3 hours).";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

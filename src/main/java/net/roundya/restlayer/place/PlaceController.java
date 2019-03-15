@@ -49,10 +49,12 @@ public class PlaceController {
     public Mono<Place> addPlace(@Valid @RequestBody Place place, HttpServletRequest request) {
         // --- Sample Request ----
         // {
-        // "subject" : "Wir",
-        // "predicate" : "laden ein zu",
-        // "object" : "einer Party",
-        // "text" : "mit Bier und Wein",
+        // "expirationDate" : "2019-03-14T10:00:00+0100",
+        // "subject" : "singular",
+        // "predicate" : "invite",
+        // "object" : "einer Feier",
+        // "text" : "mit Keksen",
+        // "ownerId": "5c3c698d6fd1bd2c4cfe5ea8",
         // "location": {
         // "type": "Point",
         // "coordinates": [-122.414023, 37.776023]
@@ -64,7 +66,7 @@ public class PlaceController {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        place.setExpirationDate(formatter.format(place.getExpirationDate()));
+        place.setExpires(formatter.format(place.getExpires()));
 
         return reactivePlaceRepository.save(place);
     }

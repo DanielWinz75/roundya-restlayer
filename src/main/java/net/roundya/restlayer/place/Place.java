@@ -48,9 +48,9 @@ public class Place {
 
     @NotNull
     @ExpiresConstraint
-    @Indexed(expireAfterSeconds = 259200) // 3 days
+    @Indexed(expireAfterSeconds = (int) PlaceConstants.TIME_TO_LIVE_MAX) // 3 hours = 10800, 3 days = 259200
     @Field(value = "ExpirationDate")
-    private Date expirationDate;
+    private Date expires;
 
     @NotBlank
     @NotEmpty
@@ -110,18 +110,18 @@ public class Place {
         return _id;
     }
 
-    public void setExpirationDate(String d) {
+    public void setExpires(String d) {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         try {
             Date expDate = formatter.parse(d);
-            this.expirationDate = expDate;
+            this.expires = expDate;
         } catch (ParseException e) {
-            this.expirationDate = null;
+            this.expires = null;
         }
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getExpires() {
+        return expires;
     }
 
     public String getSubject() {
