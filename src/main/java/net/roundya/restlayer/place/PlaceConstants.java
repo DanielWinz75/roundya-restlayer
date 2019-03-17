@@ -13,6 +13,12 @@ public class PlaceConstants {
         public static final List<String> PREDICATES = new ArrayList<String>(
                         Arrays.asList("buy", "sell", "search", "offer", "need", "invite", "present"));
 
+        public static final List<String> DOMAINS = new ArrayList<String>(
+                        Arrays.asList(
+                                "Messe Köln", 
+                                "Südstadtfest", 
+                                "Rock am Ring"));
+        
         public static final List<String> SUBJECTS = new ArrayList<String>(Arrays.asList("singular", "plural"));
 
 }
